@@ -1,20 +1,21 @@
-# .NET build artifacts
+# .NET
 bin/
 obj/
+**/bin/
+**/obj/
 
 # Visual Studio
 .vs/
+**/.vs/
 *.user
 *.suo
+*.cache
+*.log
 
-# Rider / VS Code
-.idea/
+# Editors
 .vscode/
+.idea/
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Logs & caches
-*.log
-*.cache
