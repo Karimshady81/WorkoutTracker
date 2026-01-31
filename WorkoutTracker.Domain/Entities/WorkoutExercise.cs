@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace WorkoutTracker.Domain.Entities
 {
-    public class WorkoutExercie
+    public class WorkoutExercise
     {
         public Guid Id { get; set; }
+
         public Guid WorkoutId { get; set; } // FK to Workout
         public Workout Workout { get; set; } = null!; // Navigation to Workout
+
         public Guid ExerciseId { get; set; } // FK to Exercise
         public Exercise Exercise { get; set; } = null!; // Navigation to Exercise
 
