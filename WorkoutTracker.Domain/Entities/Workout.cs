@@ -19,5 +19,8 @@ namespace WorkoutTracker.Domain.Entities
 
         //represent the Workout ↔ Exercise  (many-to-many) relationship, resolved by WorkoutExercise
         public ICollection<WorkoutExercie> WorkoutExercies { get; set; } = new List<WorkoutExercie>();
+
+        //represent the Workout ↔ WorkoutSession (one-to-many) relationship
+        public ICollection<WorkoutSession> WorkoutSessions { get; set; } = new List<WorkoutSession>();
     }
 }

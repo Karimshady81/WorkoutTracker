@@ -9,6 +9,9 @@ namespace WorkoutTracker.Domain.Entities
     public class WorkoutSession
     {
         public Guid Id { get; set; }
+        public Guid WorkoutId { get; set; } // FK (DB truth)
+        public Workout Workout { get; set; } = null!; // Navigation (code truth)
+
         public DateTime PerformedAt { get; set; }
     }
 }
