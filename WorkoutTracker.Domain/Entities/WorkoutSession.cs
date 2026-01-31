@@ -13,5 +13,9 @@ namespace WorkoutTracker.Domain.Entities
         public Workout Workout { get; set; } = null!; // Navigation (code truth)
 
         public DateTime PerformedAt { get; set; }
+
+
+        //represent the WorkoutSession -> WorkoutExercise  (one-to-many) relationship
+        public ICollection<ExerciesSet> ExerciesSets { get; set; } = new List<ExerciesSet>();
     }
 }
