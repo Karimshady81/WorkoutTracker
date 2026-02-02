@@ -4,7 +4,7 @@ using WorkoutTracker.Domain.Entities;
 
 namespace WorkoutTracker.Infrastructure.Data.Configurations
 {
-    public class UserConfugration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> entity)
         {
