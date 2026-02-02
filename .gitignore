@@ -18,6 +18,8 @@ obj/
 *.cache
 *.log
 
+appsettings.Development.json
+
 # Editors
 .vscode/
 .idea/
