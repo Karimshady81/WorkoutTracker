@@ -20,5 +20,15 @@ namespace WorkoutTracker.Infrastructure.Data
         public DbSet<WorkoutExercise> WorkoutExercises { get; set; }
         public DbSet<WorkoutSession> WorkoutSessions { get; set; }
         public DbSet<ExerciseSet> ExercisesSets { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            });
+        }
     }
 }
