@@ -17,7 +17,7 @@ namespace WorkoutTracker.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
 
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
         //represent the User → Workout (1-to-many) relationship
         public ICollection<Workout> Workouts { get; set; } = new List<Workout>();

@@ -13,7 +13,7 @@ namespace WorkoutTracker.Domain.Entities
         public User User { get; set; } = null!; // Navigation (code truth)
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
 
 
