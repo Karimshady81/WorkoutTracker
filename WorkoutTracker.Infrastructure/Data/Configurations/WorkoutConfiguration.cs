@@ -19,8 +19,7 @@ namespace WorkoutTracker.Infrastructure.Data.Configurations
             entity.Property(e => e.Description)
                    .HasMaxLength(255);
 
-            entity.Property(e => e.CreatedAt)
-                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.CreatedAt);                  
         }
     }
 }

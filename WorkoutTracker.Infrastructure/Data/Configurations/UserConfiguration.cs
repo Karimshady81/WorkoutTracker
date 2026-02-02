@@ -35,8 +35,7 @@ namespace WorkoutTracker.Infrastructure.Data.Configurations
                   .IsRequired()
                   .HasMaxLength(100);
 
-            entity.Property(e => e.CreatedAt)
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.CreatedAt);                  
 
             //Relationship
             entity.HasMany(e => e.Workouts)

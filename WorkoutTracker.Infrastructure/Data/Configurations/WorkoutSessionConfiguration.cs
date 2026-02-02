@@ -12,8 +12,7 @@ namespace WorkoutTracker.Infrastructure.Data.Configurations
 
             entity.HasKey(e => e.Id);
 
-            entity.Property(e => e.PerformedAt)
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.PerformedAt);                  
 
             entity.HasOne(e => e.Workout)
                   .WithMany(e => e.WorkoutSessions)
