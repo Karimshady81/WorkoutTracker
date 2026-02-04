@@ -9,11 +9,11 @@ namespace WorkoutTracker.Domain.RepositoryInterface
 {
     public interface IExerciseRepository
     {
-        Task<Exercise?> GetByIdAsync(Guid id);
-        Task<Exercise?> GetByNameAsync(string name);
-        Task<IReadOnlyList<Exercise>> GetAllAsync();
+        Task<Exercise?> GetByIdAsync(Guid id); // get exercise by id
+        Task<Exercise?> GetByNameAsync(string name); // lookup exercise by name
+        Task<IReadOnlyList<Exercise>> GetAllAsync(); // list exercise catalog
 
-        Task AddAsync(Exercise exercise);
-        void DeleteAsync(Exercise exercise);
-    }
+        Task AddAsync(Exercise exercise); // add new exercise to catalog
+        void DeleteAsync(Exercise exercise); // remove exercise from catalog
+}
 }

@@ -9,8 +9,8 @@ namespace WorkoutTracker.Domain.RepositoryInterface
 {
     public interface IUserRepository
     {
-        Task<User?> GetUserByIdAsync(Guid Id); 
-        Task<User?> GetUserByEmailAsync(string email);
-        Task AddAsync(User user);
+        Task<User?> GetUserByIdAsync(Guid Id); // find user by identifier
+        Task<User?> GetUserByEmailAsync(string email); // find user by identifier
+        Task AddAsync(User user);  // create new user account
     }
 }

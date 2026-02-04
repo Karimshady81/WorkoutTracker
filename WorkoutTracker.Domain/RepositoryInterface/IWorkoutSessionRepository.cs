@@ -9,9 +9,9 @@ namespace WorkoutTracker.Domain.RepositoryInterface
 {
     public interface IWorkoutSessionRepository
     {
-        Task<WorkoutSession?> GetByIdAsync(Guid id);
-        Task<IReadOnlyList<WorkoutSession>> GetByUserIdAsync(Guid userId);
-        Task AddAsync(WorkoutSession workoutSession);
-        void Delete(WorkoutSession workoutSession);
+        Task<WorkoutSession?> GetByIdAsync(Guid id); //View session details
+        Task<IReadOnlyList<WorkoutSession>> GetByUserIdAsync(Guid userId); //Workout histroy
+        Task AddAsync(WorkoutSession workoutSession); //start/log session
+        void Delete(WorkoutSession workoutSession); //delete session
     }
 }
