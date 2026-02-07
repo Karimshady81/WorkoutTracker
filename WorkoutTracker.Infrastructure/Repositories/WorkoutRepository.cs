@@ -5,7 +5,7 @@ using WorkoutTracker.Infrastructure.Data;
 
 namespace WorkoutTracker.Infrastructure.Repositories
 {
-    public class WorkoutRepository : IWokroutRepository
+    public class WorkoutRepository : IWorkoutRepository
     {
         private readonly AppDbContext _context;
 

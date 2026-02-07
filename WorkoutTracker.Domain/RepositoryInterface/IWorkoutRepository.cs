@@ -7,7 +7,7 @@ using WorkoutTracker.Domain.Entities;
 
 namespace WorkoutTracker.Domain.RepositoryInterface
 {
-    public interface IWokroutRepository
+    public interface IWorkoutRepository
     {
         Task<Workout?> GetWorkoutByIdAsync(Guid Id); // view workout details
         Task<IReadOnlyList<Workout>> GetByUserIdAsync(Guid userId); // list user workouts
