@@ -1,9 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using WorkoutTracker.Domain.RepositoryInterface;
 using WorkoutTracker.Infrastructure.Data;
+using WorkoutTracker.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
 
 builder.Services.AddControllers();
 
