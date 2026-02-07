@@ -14,6 +14,6 @@ namespace WorkoutTracker.Domain.RepositoryInterface
 
         Task AddAsync(Workout workout); // create workout template
         void UpdateAsync(Workout workout); // edit workout template
-        void DeleteAsync(Guid id); // remove workout template
+        void DeleteAsync(Workout workout); // remove workout template
     }
 }
