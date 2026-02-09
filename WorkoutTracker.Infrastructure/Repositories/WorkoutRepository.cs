@@ -30,9 +30,7 @@ namespace WorkoutTracker.Infrastructure.Repositories
 
         public async Task<IReadOnlyList<Workout>> GetByUserIdAsync(Guid userId)
         {
-            return await _context.Workouts.Where(w => w.UserId == userId)
-                                          .Include(w => w.WorkoutExercises)
-                                          .ThenInclude(we => we.Exercise)
+            return await _context.Workouts.Where(w => w.UserId == userId)                                          
                                           .ToListAsync();
         }
 
