@@ -12,5 +12,6 @@ namespace WorkoutTracker.Application.Interfaces
     {
         Task<Guid> CreateWorkoutAsync(Guid userId, CreateWorkoutRequest request);
         Task<IReadOnlyList<WorkoutListResponse>> GetWorkoutsByUserAsync(Guid userId);
+        Task<WorkoutDetailsResponse> GetWorkoutById(Guid workoutId);
     }
 }
