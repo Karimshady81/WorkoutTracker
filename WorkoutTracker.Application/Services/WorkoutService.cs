@@ -59,5 +59,20 @@ namespace WorkoutTracker.Application.Services
 
             return response;
         }
+
+        public async Task<WorkoutDetailsResponse> GetWorkoutById(Guid workoutId)
+        {
+            var workout = await _workoutRepository.GetWorkoutByIdAsync(workoutId);
+
+            if (workout == null)
+                throw new InvalidOperationException("Workout not found");
+
+            return new WorkoutDetailsResponse
+            {
+                Id = workout.Id,
+                Name = workout.Name,
+                Description = workout.Description
+            };
+        }
     }
 }
