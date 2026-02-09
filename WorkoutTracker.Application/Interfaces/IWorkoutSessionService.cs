@@ -10,6 +10,6 @@ namespace WorkoutTracker.Application.Interfaces
     public interface IWorkoutSessionService
     {
         Task<Guid> StartWorkoutSessionAsync(Guid userId,StartWorkoutSessionRequest request);
-        Task<Guid> 
+        Task<Guid> AddExerciseSetAsync(Guid userId, AddExerciseRequest request);
     }
 }
