@@ -19,7 +19,7 @@ namespace WorkoutTracker.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Guid> CreateWorkoutSession(Guid userId, StartWorkoutSessionRequest request)
+        public async Task<Guid> StartWorkoutSessionAsync(Guid userId, StartWorkoutSessionRequest request)
         {
             var workout = await _workoutRepository.GetWorkoutByIdAsync(request.WorkoutId);
 
