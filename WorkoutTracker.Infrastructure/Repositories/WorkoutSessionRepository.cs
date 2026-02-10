@@ -27,8 +27,14 @@ namespace WorkoutTracker.Infrastructure.Repositories
         //We want the session details
         public async Task<WorkoutSession?> GetByIdAsync(Guid id)
         {
-            return await _context.WorkoutSessions.Include(ws => ws.ExerciesSets)
-                                                 .FirstOrDefaultAsync(ws => ws.Id == id);
+            return await _context.WorkoutSessions.FirstOrDefaultAsync(ws => ws.Id == id);
+        }
+        public async Task<WorkoutSession?> GetWithDetailsByIdAsync(Guid sessionId)
+        {
+            return await _context.WorkoutSessions.Include(we => we.ExerciesSets)
+                                                 .ThenInclude(we => we.Exercise)
+                                                 .Include(ws => ws.Workout)
+                                                 .FirstOrDefaultAsync(ws => ws.Id == sessionId);
         }
 
         //We want the workout history (WorkoutSession → Workout → User)
