@@ -35,7 +35,7 @@ namespace WorkoutTracker.Infrastructure.Repositories
         public async Task<IReadOnlyList<WorkoutSession>> GetByUserIdAsync(Guid userId)
         {
             return await _context.WorkoutSessions.Where(ws => ws.Workout.UserId == userId)
-                                                 .OrderByDescending(ws => ws.PerformedAt)
+                                                 .OrderByDescending(ws => ws.StartedAt)
                                                  .ToListAsync();
         }
     }
