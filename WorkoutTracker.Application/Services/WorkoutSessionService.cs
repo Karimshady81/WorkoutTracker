@@ -112,5 +112,43 @@ namespace WorkoutTracker.Application.Services
 
             return session.Id;
         }
+
+        public async Task<WorkoutSessionDetailsResponse> GetSessionDetailsAsync(Guid userId, Guid sessionId)
+        {
+            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(sessionId);
+
+            //Validate
+            if (session is null)
+                throw new InvalidOperationException("Workout session not found");
+
+            //Validate ownership
+            if (session.Workout.UserId != userId)
+                throw new UnauthorizedAccessException("You do not have permission to view this session");
+
+            //Group exercise sets by exercise
+            var exercises = session.ExerciesSets
+                .GroupBy(es => es.ExerciseId)
+                .Select(g => new ExerciseInSessionResponse
+                {
+                    ExerciseId = g.Key,
+                    ExerciseName = g.First().Exercise.Name,
+                    Sets = g.Select(es => new ExerciseSetResponse
+                    {
+                        Reps = es.Reps,
+                        Weight = es.Weight,
+                        SetNumber = es.SetNumber
+                    }).ToList()
+                })
+                .ToList();
+
+            //Response
+            return new WorkoutSessionDetailsResponse
+            {
+                SessionId = session.Id,
+                StartedAt = session.StartedAt,
+                EndedAt = session.EndedAt,
+                Exercises = exercises
+            };
+        }
     }
 }
