@@ -11,5 +11,6 @@ namespace WorkoutTracker.Application.Interfaces
     {
         Task<Guid> StartWorkoutSessionAsync(Guid userId,StartWorkoutSessionRequest request);
         Task<Guid> AddExerciseSetAsync(Guid userId, AddExerciseRequest request);
+        Task<Guid> EndWorkoutSessionAsync(Guid userId, EndWorkoutSessionRequest request);
     }
 }
