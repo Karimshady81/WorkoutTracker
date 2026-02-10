@@ -41,7 +41,7 @@ namespace WorkoutTracker.Application.Services
             {
                 Id = Guid.NewGuid(),
                 WorkoutId = workout.Id,
-                PerformedAt = DateTime.UtcNow
+                StartedAt = DateTime.UtcNow
             };
 
             //Save changes
@@ -87,6 +87,30 @@ namespace WorkoutTracker.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return exerciseSet.Id;
+        }
+
+        public async Task<Guid> EndWorkoutSessionAsync(Guid userId, EndWorkoutSessionRequest request)
+        {
+            var session = await _workoutSessionRepository.GetByIdAsync(request.SessionId);
+
+            //Validate
+            if (session is null)
+                throw new InvalidOperationException("Workout session not found");
+
+            //Validate ownership
+            if (session.Workout.UserId != userId)
+                throw new UnauthorizedAccessException("You do not have permission to end this session");
+
+            if (session.EndedAt is not null)
+                throw new InvalidOperationException("This session has already been ended");
+
+            //End session
+            session.EndedAt = DateTime.UtcNow;
+
+            //Save
+            await _unitOfWork.SaveChangesAsync();
+
+            return session.Id;
         }
     }
 }
