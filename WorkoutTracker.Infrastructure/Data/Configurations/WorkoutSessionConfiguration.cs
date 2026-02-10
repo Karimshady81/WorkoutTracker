@@ -12,7 +12,7 @@ namespace WorkoutTracker.Infrastructure.Data.Configurations
 
             entity.HasKey(e => e.Id);
 
-            entity.Property(e => e.PerformedAt);                  
+            entity.Property(e => e.StartedAt);                  
 
             entity.HasOne(e => e.Workout)
                   .WithMany(e => e.WorkoutSessions)
