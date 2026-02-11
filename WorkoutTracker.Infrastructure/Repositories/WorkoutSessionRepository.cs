@@ -40,7 +40,8 @@ namespace WorkoutTracker.Infrastructure.Repositories
         //We want the workout history (WorkoutSession → Workout → User)
         public async Task<IReadOnlyList<WorkoutSession>> GetByUserIdAsync(Guid userId)
         {
-            return await _context.WorkoutSessions.Where(ws => ws.Workout.UserId == userId)
+            return await _context.WorkoutSessions.Include(ws => ws.Workout)
+                                                 .Where(ws => ws.Workout.UserId == userId)
                                                  .OrderByDescending(ws => ws.StartedAt)
                                                  .ToListAsync();
         }
