@@ -150,5 +150,22 @@ namespace WorkoutTracker.Application.Services
                 Exercises = exercises
             };
         }
+
+        public async Task<IReadOnlyList<WorkoutSessionSummaryResponse>> GetWorkoutHistoryAsync(Guid userId)
+        {
+            var sessions = await _workoutSessionRepository.GetByUserIdAsync(userId);
+
+            //Validate
+            if (sessions is null)
+                throw new InvalidOperationException("No workout sessions found for this user");
+
+            return sessions.Select(session => new WorkoutSessionSummaryResponse
+            {
+                SessionId = session.Id,
+                WorkoutName = session.Workout.Name,
+                StartedAt = session.StartedAt,
+                EndedAt = session.EndedAt
+            }).ToList();
+        }
     }
 }
