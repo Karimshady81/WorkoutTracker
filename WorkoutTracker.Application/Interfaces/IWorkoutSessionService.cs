@@ -17,5 +17,6 @@ namespace WorkoutTracker.Application.Interfaces
         Task<IReadOnlyList<WorkoutSessionSummaryResponse>> GetWorkoutHistoryAsync(Guid userId);
 
         Task UpdateExerciseSetAsync(Guid userId, UpdateExerciseSetRequest request);
+        Task DeleteExerciseSetAsync(Guid userId, DeleteExerciseSetRequest request);
     }
 }

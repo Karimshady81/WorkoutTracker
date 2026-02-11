@@ -197,5 +197,33 @@ namespace WorkoutTracker.Application.Services
             //Save
             await _unitOfWork.SaveChangesAsync();
         }
+
+        public async Task DeleteExerciseSetAsync(Guid userId, DeleteExerciseSetRequest request)
+        {
+            //Get session
+            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+
+            //Validate
+            if (session is null)
+                throw new InvalidOperationException("Workout session not found");
+
+            if (session.Workout.UserId != userId)
+                throw new UnauthorizedAccessException("You do not have permission to delete an exercise set from this session");
+
+            if (session.EndedAt is not null)
+                throw new InvalidOperationException("Cannot delete exercise sets from a session that has already ended");
+
+            //Find the set
+            var set = session.ExerciseSets.FirstOrDefault(s => s.Id == request.SetId);
+
+            if (set is null)
+                throw new InvalidOperationException("Exercise set not found in this session");
+
+            //Remove set
+            session.ExerciseSets.Remove(set);
+
+            //Save
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 }
