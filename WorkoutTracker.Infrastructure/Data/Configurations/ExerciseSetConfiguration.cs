@@ -32,7 +32,7 @@ namespace WorkoutTracker.Infrastructure.Data.Configurations
                   .IsUnique();
 
             entity.HasOne(e => e.WorkoutSession)
-                    .WithMany(e => e.ExerciesSets)
+                    .WithMany(e => e.ExerciseSets)
                     .HasForeignKey(e => e.WorkoutSessionId)
                     .OnDelete(DeleteBehavior.Cascade);
 

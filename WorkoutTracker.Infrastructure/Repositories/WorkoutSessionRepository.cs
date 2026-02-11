@@ -31,7 +31,7 @@ namespace WorkoutTracker.Infrastructure.Repositories
         }
         public async Task<WorkoutSession?> GetWithDetailsByIdAsync(Guid sessionId)
         {
-            return await _context.WorkoutSessions.Include(we => we.ExerciesSets)
+            return await _context.WorkoutSessions.Include(we => we.ExerciseSets)
                                                  .ThenInclude(we => we.Exercise)
                                                  .Include(ws => ws.Workout)
                                                  .FirstOrDefaultAsync(ws => ws.Id == sessionId);
