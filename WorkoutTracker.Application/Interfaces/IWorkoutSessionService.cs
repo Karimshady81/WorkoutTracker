@@ -15,5 +15,7 @@ namespace WorkoutTracker.Application.Interfaces
         Task<Guid> EndWorkoutSessionAsync(Guid userId, EndWorkoutSessionRequest request);
         Task<WorkoutSessionDetailsResponse> GetSessionDetailsAsync(Guid userId, Guid sessionId);
         Task<IReadOnlyList<WorkoutSessionSummaryResponse>> GetWorkoutHistoryAsync(Guid userId);
+
+        Task UpdateExerciseSetAsync(Guid userId, UpdateExerciseSetRequest request);
     }
 }

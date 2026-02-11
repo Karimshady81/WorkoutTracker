@@ -81,7 +81,7 @@ namespace WorkoutTracker.Application.Services
             };
 
             //Attach to session (aggregate root)
-            session.ExerciesSets.Add(exerciseSet);
+            session.ExerciseSets.Add(exerciseSet);
 
             //Persist changes
             await _unitOfWork.SaveChangesAsync();
@@ -126,7 +126,7 @@ namespace WorkoutTracker.Application.Services
                 throw new UnauthorizedAccessException("You do not have permission to view this session");
 
             //Group exercise sets by exercise
-            var exercises = session.ExerciesSets
+            var exercises = session.ExerciseSets
                 .GroupBy(es => es.ExerciseId)
                 .Select(g => new ExerciseInSessionResponse
                 {
@@ -166,6 +166,36 @@ namespace WorkoutTracker.Application.Services
                 StartedAt = session.StartedAt,
                 EndedAt = session.EndedAt
             }).ToList();
+        }
+
+        public async Task UpdateExerciseSetAsync(Guid userId, UpdateExerciseSetRequest request)
+        {
+            //Get session
+            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+
+            //Validate
+            if (session is null)
+                throw new InvalidOperationException("Workout session not found");
+
+            if (session.Workout.UserId != userId)
+                throw new UnauthorizedAccessException("You do not have permission to update an exercise set in this session");
+
+            if (session.EndedAt is not null)
+                throw new InvalidOperationException("Cannot update exercise sets in a session that has already ended");
+
+            //Find the set
+            var set = session.ExerciseSets.FirstOrDefault(s => s.Id == request.SetId);
+
+            if (set is null)
+                throw new InvalidOperationException("Exercise set not found in this session");
+
+            //Update set details
+            set.Reps = request.Reps;
+            set.Weight = request.Weight;
+            set.SetNumber = request.SetNumber;
+
+            //Save
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 }
