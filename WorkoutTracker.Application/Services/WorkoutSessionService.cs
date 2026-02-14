@@ -11,16 +11,19 @@ namespace WorkoutTracker.Application.Services
         private readonly IWorkoutRepository _workoutRepository;
         private readonly IWorkoutSessionRepository _workoutSessionRepository;
         private readonly IExerciseRepository _exerciseRepository;
+        private readonly IExerciseSetRepository _exerciseSetRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public WorkoutSessionService(IWorkoutRepository workoutRepository, 
                                     IWorkoutSessionRepository workoutSessionRepository, 
-                                    IExerciseRepository exerciseRepository, 
+                                    IExerciseRepository exerciseRepository,
+                                    IExerciseSetRepository exerciseSet, 
                                     IUnitOfWork unitOfWork)
         {
             _workoutRepository = workoutRepository;
             _workoutSessionRepository = workoutSessionRepository;
             _exerciseRepository = exerciseRepository;
+            _exerciseSetRepository = exerciseSet;
             _unitOfWork = unitOfWork;
         }
 
@@ -54,7 +57,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<Guid> AddExerciseSetAsync(Guid userId, AddExerciseRequest request)
         {
-            var session = await _workoutSessionRepository.GetByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
 
             //Validate
             if (session is null)
@@ -81,7 +84,7 @@ namespace WorkoutTracker.Application.Services
             };
 
             //Attach to session (aggregate root)
-            session.ExerciseSets.Add(exerciseSet);
+            await _exerciseSetRepository.AddAsync(exerciseSet);
 
             //Persist changes
             await _unitOfWork.SaveChangesAsync();
