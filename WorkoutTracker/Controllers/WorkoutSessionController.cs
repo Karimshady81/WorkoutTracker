@@ -39,5 +39,13 @@ namespace WorkoutTracker.API.Controllers
 
             return Ok(endSession);
         }
+
+        [HttpGet("session/{sessionId}")]
+        public async Task<IActionResult> GetSessionDetails([FromQuery] Guid userId,Guid sessionId)
+        {
+            var session = await _workoutSession.GetSessionDetailsAsync(userId, sessionId);
+
+            return Ok(session);
+        }
     }
 }
