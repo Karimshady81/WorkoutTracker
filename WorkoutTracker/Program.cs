@@ -13,6 +13,18 @@ using WorkoutTracker.Infrastructure.Security;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Regiser repos
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+builder.Services.AddScoped<IExerciseSetRepository, ExerciseSetRepository>();
+builder.Services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
+
+//register JWT
 builder.Services.AddScoped<IJwtGenerator, JwtGenerator>();
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -38,14 +50,7 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-//Regiser repos
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
-builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-builder.Services.AddScoped<IExerciseSetRepository, ExerciseSetRepository>();
-builder.Services.AddScoped<IWorkoutSessionRepository, WorkoutSessionRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWorkRepository>();
+
 
 //Register services
 builder.Services.AddScoped<IWorkoutService, WorkoutService>();
