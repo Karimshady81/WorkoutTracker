@@ -57,7 +57,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<Guid> AddExerciseSetAsync(Guid userId, AddExerciseRequest request)
         {
-            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetWithExercisesAsync(request.SessionId);
 
             //Validate
             if (session is null)
@@ -94,7 +94,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<Guid> EndWorkoutSessionAsync(Guid userId, EndWorkoutSessionRequest request)
         {
-            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetWithWorkoutAsync(request.SessionId);
 
             //Validate
             if (session is null)
@@ -118,7 +118,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<WorkoutSessionDetailsResponse> GetSessionDetailsAsync(Guid userId, Guid sessionId)
         {
-            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(sessionId);
+            var session = await _workoutSessionRepository.GetFullDetailsByIdAsync(sessionId);
 
             //Validate
             if (session is null)
@@ -174,7 +174,7 @@ namespace WorkoutTracker.Application.Services
         public async Task UpdateExerciseSetAsync(Guid userId, UpdateExerciseSetRequest request)
         {
             //Get session
-            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetFullDetailsByIdAsync(request.SessionId);
 
             //Validate
             if (session is null)
@@ -204,7 +204,7 @@ namespace WorkoutTracker.Application.Services
         public async Task DeleteExerciseSetAsync(Guid userId, DeleteExerciseSetRequest request)
         {
             //Get session
-            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetFullDetailsByIdAsync(request.SessionId);
 
             //Validate
             if (session is null)
