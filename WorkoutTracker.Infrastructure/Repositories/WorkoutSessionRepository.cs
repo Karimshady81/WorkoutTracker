@@ -34,6 +34,7 @@ namespace WorkoutTracker.Infrastructure.Repositories
             return await _context.WorkoutSessions
                                             .Include(ws => ws.Workout)
                                             .Include(ws => ws.ExerciseSets)
+                                                .ThenInclude(es => es.Exercise)
                                             .FirstOrDefaultAsync(ws => ws.Id == sessionId);
         }
 
