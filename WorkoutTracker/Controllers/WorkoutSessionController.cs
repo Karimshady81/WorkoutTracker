@@ -63,5 +63,13 @@ namespace WorkoutTracker.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("delete-set")]
+        public async Task<IActionResult> DeleteExerciseSet([FromQuery] Guid userId,[FromBody] DeleteExerciseSetRequest request)
+        {
+            await _workoutSession.DeleteExerciseSetAsync(userId, request);
+
+            return NoContent();
+        }
     }
 }
