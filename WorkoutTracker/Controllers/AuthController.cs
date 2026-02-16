@@ -11,23 +11,29 @@ namespace WorkoutTracker.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly IJwtGenerator _jwtGenerator;
 
-        public AuthController(IAuthService authService, IJwtGenerator jwtGenerator)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _jwtGenerator = jwtGenerator;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser(RegisterRequest request)
         {
-            var createdUser = await _authService.RegisterUserAsync(request);
+            var register = await _authService.RegisterUserAsync(request);
             
             return CreatedAtAction(
                 nameof(RegisterUser),
-                new { id = createdUser.userId }, 
-                createdUser);
+                new { id = register.userId }, 
+                register);
+        }
+
+        [HttpGet("login")]
+        public async Task<IActionResult> LoginUser(LoginRequest request)
+        {
+            var login = await _authService.LoginUserAsync(request);
+
+            return Ok(login);
         }
     }
 }
