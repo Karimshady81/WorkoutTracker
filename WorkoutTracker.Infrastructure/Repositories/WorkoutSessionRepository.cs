@@ -29,7 +29,8 @@ namespace WorkoutTracker.Infrastructure.Repositories
         {
             return await _context.WorkoutSessions.FirstOrDefaultAsync(ws => ws.Id == id);
         }
-        public async Task<WorkoutSession?> GetWithDetailsByIdAsync(Guid sessionId)
+
+        public async Task<WorkoutSession?> GetFullDetailsByIdAsync(Guid sessionId)
         {
             return await _context.WorkoutSessions
                                             .Include(ws => ws.Workout)
@@ -45,6 +46,21 @@ namespace WorkoutTracker.Infrastructure.Repositories
                                                  .Where(ws => ws.Workout.UserId == userId)
                                                  .OrderByDescending(ws => ws.StartedAt)
                                                  .ToListAsync();
+        }
+
+        public async Task<WorkoutSession?> GetWithWorkoutAsync(Guid sessionId)
+        {
+            return await _context.WorkoutSessions
+                                                .Include(ws => ws.Workout)
+                                                .FirstOrDefaultAsync(ws => ws.Id == sessionId);
+        }
+
+        public async Task<WorkoutSession?> GetWithExercisesAsync(Guid sessionId)
+        {
+            return await _context.WorkoutSessions
+                                            .Include(ws => ws.ExerciseSets)
+                                                .ThenInclude(es => es.Exercise)
+                                            .FirstOrDefaultAsync(ws => ws.Id == sessionId);
         }
     }
 }
