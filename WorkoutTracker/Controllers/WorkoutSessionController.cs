@@ -55,5 +55,13 @@ namespace WorkoutTracker.API.Controllers
 
             return Ok(workouts);
         }
+
+        [HttpPut("update-set")]
+        public async Task<IActionResult> UpdateExerciseSet([FromQuery] Guid userId,[FromBody] UpdateExerciseSetRequest request)
+        {
+            await _workoutSession.UpdateExerciseSetAsync(userId, request);
+
+            return NoContent();
+        }
     }
 }
