@@ -20,10 +20,14 @@ namespace WorkoutTracker.Application.Services
         private readonly IJwtGenerator _jwtGenerator;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AuthService(IUserRepository userRepository, IPasswordHasher passwordHasher, IUnitOfWork unitOfWork)
+        public AuthService(IUserRepository userRepository, 
+                           IPasswordHasher passwordHasher, 
+                           IJwtGenerator jwtGenerator, 
+                           IUnitOfWork unitOfWork)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
+            _jwtGenerator = jwtGenerator;
             _unitOfWork = unitOfWork;
         }
 
