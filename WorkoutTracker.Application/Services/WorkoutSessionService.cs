@@ -94,7 +94,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<Guid> EndWorkoutSessionAsync(Guid userId, EndWorkoutSessionRequest request)
         {
-            var session = await _workoutSessionRepository.GetByIdAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetWithDetailsByIdAsync(request.SessionId);
 
             //Validate
             if (session is null)
