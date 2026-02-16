@@ -57,7 +57,7 @@ namespace WorkoutTracker.Application.Services
 
         public async Task<Guid> AddExerciseSetAsync(Guid userId, AddExerciseRequest request)
         {
-            var session = await _workoutSessionRepository.GetWithExercisesAsync(request.SessionId);
+            var session = await _workoutSessionRepository.GetFullDetailsByIdAsync(request.SessionId);
 
             //Validate
             if (session is null)
