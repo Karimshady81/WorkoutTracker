@@ -31,5 +31,13 @@ namespace WorkoutTracker.API.Controllers
 
             return Ok(exercisesAdded);
         }
+
+        [HttpPost("end")]
+        public async Task<IActionResult> EndWorkoutSession(Guid userId, EndWorkoutSessionRequest request)
+        {
+            var endSession = await _workoutSession.EndWorkoutSessionAsync(userId, request);
+
+            return Ok(endSession);
+        }
     }
 }
