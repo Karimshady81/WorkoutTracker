@@ -47,5 +47,13 @@ namespace WorkoutTracker.API.Controllers
 
             return Ok(session);
         }
+
+        [HttpGet("history")]
+        public async Task<IActionResult> GetWorkoutsHistory([FromQuery] Guid userId)
+        {
+            var workouts = await _workoutSession.GetWorkoutHistoryAsync(userId);
+
+            return Ok(workouts);
+        }
     }
 }
