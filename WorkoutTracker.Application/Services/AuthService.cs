@@ -65,9 +65,29 @@ namespace WorkoutTracker.Application.Services
             };
         }
 
-        public Task<AuthResponse?> LoginUserAsync(LoginRequest request)
+        public async Task<AuthResponse?> LoginUserAsync(LoginRequest request)
         {
-            throw new NotImplementedException();
+            //Validate inputs first
+            if (string.IsNullOrEmpty(request.Email))
+                throw new InvalidOperationException("Email is required.");
+
+            if (string.IsNullOrEmpty(request.Password))
+                throw new InvalidOperationException("Password is required.");
+
+            //Check if user exists
+            var user = await _userRepository.GetUserByEmailAsync(request.Email);
+            
+            if (user == null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
+                throw new InvalidOperationException("Invalid email or password.");
+
+            var token = _jwtGenerator.GenerateToken(user.Id.ToString(), user.Email);
+
+            return new AuthResponse
+            {
+                Token = token,
+                userId = user.Id
+            };
+            
         }
 
     }
